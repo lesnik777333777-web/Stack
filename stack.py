@@ -41,34 +41,22 @@ def is_balanced(brackets: str) -> bool:
     Возвращает:
         bool: True, если скобки сбалансированы, иначе False.
     """
-    # Словарь соответствия закрывающей скобки открывающей
     matching = {')': '(', ']': '[', '}': '{'}
     stack = Stack()
 
     for ch in brackets:
-        if ch in matching:  # если это закрывающая скобка
-            # Если стек пуст или верхний элемент не соответствует, то ошибка
+        if ch in matching:  # закрывающая скобка
             if stack.is_empty() or stack.pop() != matching[ch]:
                 return False
-        else:  # иначе это открывающая скобка
+        else:  # открывающая скобка
             stack.push(ch)
 
-    # После обработки всех символов стек должен быть пустым
     return stack.is_empty()
 
 
-# Примеры использования
 if __name__ == "__main__":
-    test_cases = [
-        ("(((([{}]))))", True),
-        ("[([])((([[[]]])))]{()}", True),
-        ("{{[()]}}", True),
-        ("}{}", False),
-        ("{{[(])]}}", False),
-        ("[[{())}]", False),
-    ]
-
-    for test, expected in test_cases:
-        result = is_balanced(test)
-        status = "Сбалансированно" if result else "Несбалансированно"
-        print(f"{test:30} -> {status} (expected: {expected})")
+    brackets = input("Введите строку со скобками: ").strip()
+    if is_balanced(brackets):
+        print("Сбалансированно")
+    else:
+        print("Несбалансированно")
